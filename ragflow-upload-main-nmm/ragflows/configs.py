@@ -1,0 +1,71 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# author：samge
+# date：2024-08-23 16:49
+# describe：
+
+API_URL = 'http://192.168.66.36/v1'  # ragflow的api地址，请替换为实际的服务器地址
+AUTHORIZATION = 'IjYxOTM3OTQ2YWMyOTExZjE4YjNlMDI0MmFjMWIwMDA2Ig.aqEaQw.TFgTnMSPOxs1SdfLaPo2yEk0GPQ'  # ragflow的api鉴权token
+DIFY_DOC_KB_ID = '782fa2a6e11711f1a2b10242ac1b0006'  # ragflow的知识库id
+KB_NAME = "hj64"  # ragflow的知识库名称
+PARSER_ID = "paper"  # ragflow的知识库文档解析方式
+
+DOC_DIR = '/public/ly/hj/documents/'    # 
+DOC_SUFFIX = 'md,txt,pdf,docx'    # 指定文档后缀
+NANOZYME_XLSX_PATH = '/public/ly/hj/nanozyme_names1.xlsx'  # A列文档编号，B列Nanozyme Name
+
+MYSQL_HOST = '127.0.0.1'
+MYSQL_PORT = 5455
+MYSQL_USER = 'root'
+MYSQL_PASSWORD = 'infini_rag_flow'
+MYSQL_DATABASE = 'rag_flow'
+
+# ========== Nanozyme Extraction Configuration ==========
+CHAT_ID = "9faec032ebb811f0b4ce0242ac150006"
+OPENAI_API_KEY = "ragflow-llYjM3MGYwYTdiYjExZjFhZGFiMDI0Mm"
+OPENAI_BASE_URL = "http://192.168.66.36:80/api/v1/chats_openai"
+
+# 提取设置
+EXTRACT_NANOZYME = True  # 是否提取纳米酶信息
+EXTRACTION_WAIT_TIME = 3  # 提取间隔时间（秒）
+STREAM_EXTRACTION = True  # 是否使用流式提取
+INCLUDE_REFERENCES = False  # 不包含引用信息（只保存提取内容）
+REQUIRE_ALL_NANOZYME_NAMES = False  # 允许同一PDF只保存匹配且完整提取成功的材料
+RAGFLOW_REQUEST_TIMEOUT = 180
+NANOZYME_MAX_CONTEXT_CHARS = 8000
+EXTRACTION_MAX_RETRIES = 2
+
+# 输出目录
+NANOZYME_OUTPUT_DIR = "/public/ly/hj/ragflow-data-deepseek-V4------nmm"            
+
+# 数据库操作
+DELETE_FROM_DATABASE = True  # 提取保存成功后，由RAGFlow官方API删除文档和向量切片
+DOCUMENT_DELETE_VERIFY_RETRIES = 15
+DOCUMENT_DELETE_VERIFY_INTERVAL = 1
+KEEP_LOCAL_FILES = True  # 保留本地文档文件（不删除）
+
+
+# 文档最少行数，低于该值的文档则被忽略，该参数仅作用于 txt,md,html 后缀文件
+DOC_MIN_LINES = 1
+
+# 是否仅上传文件。True=仅上传文件， False=上传文件+自动解析
+ONLY_UPLOAD = False
+
+# 是否打印切片进度查询日志。True=打印，False=不打印
+ENABLE_PROGRESS_LOG = True
+
+# 切片进度查询间隔时间（秒）
+PROGRESS_CHECK_INTERVAL = 1
+PARSE_MAX_WAIT_SECONDS = 1800
+
+# 查数据库重试次数（单次重试间隔为1秒）
+SQL_RETRIES = 0
+
+# 首次上传后解析文件的等待时间
+FIRST_PARSE_WAIT_TIME = 0
+
+# 元数据后缀，需要跟上传文件放在同一目录，json格式。只有当该配置不为空时才会自动添加/更新元数据信息
+METADATA_SUFFIX = ''    # 例如：.meta.json
+
+def get_header():
+    return {'authorization': AUTHORIZATION}
